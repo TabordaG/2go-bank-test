@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   mockito: ^5.4.2
+  collection: ^1.17.1
 
 dev_dependencies:
   flutter_test:

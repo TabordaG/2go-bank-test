@@ -19,3 +19,7 @@ class CacheFailure extends Failure {
 class ConnectionFailure extends Failure {
   const ConnectionFailure(String message) : super(message);
 }
+
+class DatabaseFailure extends Failure {
+  const DatabaseFailure(String message) : super(message);
+}

@@ -3,14 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:test_2go_bank/core/error/failure.dart' as _i5;
-import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i6;
+import 'package:test_2go_bank/core/error/failure.dart' as _i6;
+import 'package:test_2go_bank/data/data_sources/remote_data_source.dart' as _i8;
+import 'package:test_2go_bank/data/models/product_model.dart' as _i3;
+import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i7;
 import 'package:test_2go_bank/domain/repositories/product_repository.dart'
-    as _i3;
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,29 +37,64 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeProductModel_1 extends _i1.SmartFake implements _i3.ProductModel {
+  _FakeProductModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ProductRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProductRepository extends _i1.Mock implements _i3.ProductRepository {
+class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
   MockProductRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.ProductEntity>> getProduct(int? id) =>
+  _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>> getProduct(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getProduct,
           [id],
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i6.ProductEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i6.ProductEntity>(
+            _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i7.ProductEntity>(
           this,
           Invocation.method(
             #getProduct,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.ProductEntity>>);
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>>);
+}
+
+/// A class which mocks [ProductRemoteDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductRemoteDataSource extends _i1.Mock
+    implements _i8.ProductRemoteDataSource {
+  MockProductRemoteDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i3.ProductModel> getProduct(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getProduct,
+          [id],
+        ),
+        returnValue: _i5.Future<_i3.ProductModel>.value(_FakeProductModel_1(
+          this,
+          Invocation.method(
+            #getProduct,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.ProductModel>);
 }
