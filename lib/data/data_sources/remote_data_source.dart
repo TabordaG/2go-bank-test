@@ -1,9 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:test_2go_bank/core/error/failure.dart';
 import 'package:test_2go_bank/data/models/product_model.dart';
+import 'package:test_2go_bank/data/models/promotion_model.dart';
+
+import '../../core/enums/promotion_type_enum.dart';
 
 abstract class ProductRemoteDataSource {
   Future<ProductModel> fetchProduct(int id);
+  Future<PromotionModel> fetchProductPromotion(int productId);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -16,6 +20,18 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       return Future.value(product);
     } else {
       throw const DatabaseFailure('Product not found');
+    }
+  }
+
+  @override
+  Future<PromotionModel> fetchProductPromotion(int productId) {
+    final promotion = testPromotions
+        .firstWhereOrNull((element) => element.productId == productId);
+
+    if (promotion != null) {
+      return Future.value(promotion);
+    } else {
+      throw const DatabaseFailure('Promotion not found');
     }
   }
 }
@@ -45,5 +61,29 @@ List<ProductModel> testProducts = [
     id: 5,
     name: 'E',
     price: 2.0,
+  ),
+];
+
+List<PromotionModel> testPromotions = [
+  const DiscountQuantityPromotionModel(
+    id: 1,
+    productId: 2,
+    type: PromotionTypeEnum.discountQuantityPromotion,
+    minQuantity: 2,
+    promotionalPrice: 1.25,
+  ),
+  const BuyOneGetOnePromotionModel(
+    id: 2,
+    productId: 3,
+    type: PromotionTypeEnum.buyOneGetOnePromotion,
+    requiredQuantity: 3,
+    freeQuantity: 1,
+  ),
+  const CombinedOfferPromotionModel(
+    id: 3,
+    productId: 4,
+    type: PromotionTypeEnum.combinedOfferPromotion,
+    productIds: [4, 5],
+    combinedPrice: 3.0,
   ),
 ];

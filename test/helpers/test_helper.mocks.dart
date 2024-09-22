@@ -3,16 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:test_2go_bank/core/error/failure.dart' as _i6;
-import 'package:test_2go_bank/data/data_sources/remote_data_source.dart' as _i8;
+import 'package:test_2go_bank/core/error/failure.dart' as _i7;
+import 'package:test_2go_bank/data/data_sources/remote_data_source.dart'
+    as _i10;
 import 'package:test_2go_bank/data/models/product_model.dart' as _i3;
-import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i7;
+import 'package:test_2go_bank/data/models/promotion_model.dart' as _i4;
+import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i8;
+import 'package:test_2go_bank/domain/entities/promotion_entity.dart' as _i9;
 import 'package:test_2go_bank/domain/repositories/product_repository.dart'
-    as _i4;
+    as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -47,16 +50,27 @@ class _FakeProductModel_1 extends _i1.SmartFake implements _i3.ProductModel {
         );
 }
 
+class _FakePromotionModel_2 extends _i1.SmartFake
+    implements _i4.PromotionModel {
+  _FakePromotionModel_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ProductRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
+class MockProductRepository extends _i1.Mock implements _i5.ProductRepository {
   MockProductRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>> fetchProduct(
+  _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>> fetchProduct(
           int? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -64,38 +78,72 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
           [id],
         ),
         returnValue:
-            _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>>.value(
-                _FakeEither_0<_i6.Failure, _i7.ProductEntity>(
+            _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>>.value(
+                _FakeEither_0<_i7.Failure, _i8.ProductEntity>(
           this,
           Invocation.method(
             #fetchProduct,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>>);
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>>);
+
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>
+      fetchProductPromotion(int? productId) => (super.noSuchMethod(
+            Invocation.method(
+              #fetchProductPromotion,
+              [productId],
+            ),
+            returnValue:
+                _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>.value(
+                    _FakeEither_0<_i7.Failure, _i9.PromotionEntity>(
+              this,
+              Invocation.method(
+                #fetchProductPromotion,
+                [productId],
+              ),
+            )),
+          ) as _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>);
 }
 
 /// A class which mocks [ProductRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductRemoteDataSource extends _i1.Mock
-    implements _i8.ProductRemoteDataSource {
+    implements _i10.ProductRemoteDataSource {
   MockProductRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i3.ProductModel> fetchProduct(int? id) => (super.noSuchMethod(
+  _i6.Future<_i3.ProductModel> fetchProduct(int? id) => (super.noSuchMethod(
         Invocation.method(
           #fetchProduct,
           [id],
         ),
-        returnValue: _i5.Future<_i3.ProductModel>.value(_FakeProductModel_1(
+        returnValue: _i6.Future<_i3.ProductModel>.value(_FakeProductModel_1(
           this,
           Invocation.method(
             #fetchProduct,
             [id],
           ),
         )),
-      ) as _i5.Future<_i3.ProductModel>);
+      ) as _i6.Future<_i3.ProductModel>);
+
+  @override
+  _i6.Future<_i4.PromotionModel> fetchProductPromotion(int? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchProductPromotion,
+          [productId],
+        ),
+        returnValue: _i6.Future<_i4.PromotionModel>.value(_FakePromotionModel_2(
+          this,
+          Invocation.method(
+            #fetchProductPromotion,
+            [productId],
+          ),
+        )),
+      ) as _i6.Future<_i4.PromotionModel>);
 }

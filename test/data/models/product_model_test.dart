@@ -20,7 +20,6 @@ void main() {
 
   test('should return a valid Product Model', () async {
     final result = ProductModel.fromEntity(testProduct);
-
     expect(result, isA<ProductModel>());
     expect(result.id, testProduct.id);
     expect(result.name, testProduct.name);
