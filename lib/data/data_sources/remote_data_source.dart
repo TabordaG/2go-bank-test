@@ -3,12 +3,12 @@ import 'package:test_2go_bank/core/error/failure.dart';
 import 'package:test_2go_bank/data/models/product_model.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<ProductModel> getProduct(int id);
+  Future<ProductModel> fetchProduct(int id);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
-  Future<ProductModel> getProduct(int id) {
+  Future<ProductModel> fetchProduct(int id) {
     final product =
         testProducts.firstWhereOrNull((element) => element.id == id);
 

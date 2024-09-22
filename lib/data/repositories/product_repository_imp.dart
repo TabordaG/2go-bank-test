@@ -17,9 +17,9 @@ class ProductRepositoryImp implements ProductRepository {
   });
 
   @override
-  Future<Either<Failure, ProductEntity>> getProduct(int id) async {
+  Future<Either<Failure, ProductEntity>> fetchProduct(int id) async {
     try {
-      final remoteProduct = await remoteDataSource.getProduct(id);
+      final remoteProduct = await remoteDataSource.fetchProduct(id);
       // localDataSource.cacheProduct(remoteProduct);
       return Right(remoteProduct);
     } catch (e) {

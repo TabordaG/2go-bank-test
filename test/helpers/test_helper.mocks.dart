@@ -56,10 +56,11 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
   }
 
   @override
-  _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>> getProduct(int? id) =>
+  _i5.Future<_i2.Either<_i6.Failure, _i7.ProductEntity>> fetchProduct(
+          int? id) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getProduct,
+          #fetchProduct,
           [id],
         ),
         returnValue:
@@ -67,7 +68,7 @@ class MockProductRepository extends _i1.Mock implements _i4.ProductRepository {
                 _FakeEither_0<_i6.Failure, _i7.ProductEntity>(
           this,
           Invocation.method(
-            #getProduct,
+            #fetchProduct,
             [id],
           ),
         )),
@@ -84,15 +85,15 @@ class MockProductRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i5.Future<_i3.ProductModel> getProduct(int? id) => (super.noSuchMethod(
+  _i5.Future<_i3.ProductModel> fetchProduct(int? id) => (super.noSuchMethod(
         Invocation.method(
-          #getProduct,
+          #fetchProduct,
           [id],
         ),
         returnValue: _i5.Future<_i3.ProductModel>.value(_FakeProductModel_1(
           this,
           Invocation.method(
-            #getProduct,
+            #fetchProduct,
             [id],
           ),
         )),

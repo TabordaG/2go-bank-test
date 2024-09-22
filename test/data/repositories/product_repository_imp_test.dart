@@ -22,19 +22,19 @@ void main() {
   );
 
   test('should return the found product', () async {
-    when(mockProductRemoteDataSource.getProduct(any))
+    when(mockProductRemoteDataSource.fetchProduct(any))
         .thenAnswer((_) async => testProduct);
 
-    final result = await sut.getProduct(1);
+    final result = await sut.fetchProduct(1);
 
     expect(result.isRight(), true);
     expect(result, const Right(testProduct));
   });
 
   test('should return a failure when the product is not found', () async {
-    when(mockProductRemoteDataSource.getProduct(any)).thenThrow(Exception());
+    when(mockProductRemoteDataSource.fetchProduct(any)).thenThrow(Exception());
 
-    final result = await sut.getProduct(1);
+    final result = await sut.fetchProduct(1);
 
     expect(result.isLeft(), true);
   });

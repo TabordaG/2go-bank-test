@@ -4,17 +4,17 @@ import '/core/error/failure.dart';
 import '../entities/product_entity.dart';
 import '../repositories/product_repository.dart';
 
-abstract class GetProductUseCase {
+abstract class FetchProductUseCase {
   Future<Either<Failure, ProductEntity>> call(int id);
 }
 
-class GetProductUseCaseImpl implements GetProductUseCase {
+class FetchProductUseCaseImpl implements FetchProductUseCase {
   final ProductRepository repository;
 
-  GetProductUseCaseImpl(this.repository);
+  FetchProductUseCaseImpl(this.repository);
 
   @override
   Future<Either<Failure, ProductEntity>> call(int id) {
-    return repository.getProduct(id);
+    return repository.fetchProduct(id);
   }
 }
