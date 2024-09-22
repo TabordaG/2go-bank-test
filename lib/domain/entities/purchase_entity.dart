@@ -11,7 +11,7 @@ class PurchaseEntity extends Equatable {
   const PurchaseEntity({
     required this.id,
     required this.date,
-    required this.total,
+    this.total = 0.0,
     required this.items,
   });
 
