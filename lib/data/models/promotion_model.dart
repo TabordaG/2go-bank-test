@@ -43,7 +43,8 @@ class PromotionModel extends PromotionEntity {
         return CombinedOfferPromotionEntity(
           id: id,
           productId: productId,
-          productIds: (this as CombinedOfferPromotionModel).productIds,
+          combinedProductId:
+              (this as CombinedOfferPromotionModel).combinedProductId,
           combinedPrice: (this as CombinedOfferPromotionModel).combinedPrice,
         );
     }
@@ -97,14 +98,14 @@ class BuyOneGetOnePromotionModel extends PromotionModel {
 }
 
 class CombinedOfferPromotionModel extends PromotionModel {
-  final List<int> productIds;
+  final int? combinedProductId;
   final double combinedPrice;
 
   const CombinedOfferPromotionModel({
     required int id,
     required int productId,
     required PromotionTypeEnum type,
-    required this.productIds,
+    required this.combinedProductId,
     required this.combinedPrice,
   }) : super(id: id, productId: productId, type: type);
 
@@ -113,10 +114,7 @@ class CombinedOfferPromotionModel extends PromotionModel {
       id: json['id'],
       productId: json['product_id'],
       type: PromotionTypeEnum.combinedOfferPromotion,
-      productIds: List<int>.from([
-        json['product_id'],
-        json['product_id_combined'],
-      ]),
+      combinedProductId: json['product_id_combined'],
       combinedPrice: json['combined_price'],
     );
   }

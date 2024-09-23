@@ -3,19 +3,25 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
-import 'package:dartz/dartz.dart' as _i2;
+import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:test_2go_bank/core/error/failure.dart' as _i7;
+import 'package:test_2go_bank/core/error/failure.dart' as _i8;
 import 'package:test_2go_bank/data/data_sources/remote_data_source.dart'
-    as _i10;
-import 'package:test_2go_bank/data/models/product_model.dart' as _i3;
-import 'package:test_2go_bank/data/models/promotion_model.dart' as _i4;
-import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i8;
-import 'package:test_2go_bank/domain/entities/promotion_entity.dart' as _i9;
+    as _i13;
+import 'package:test_2go_bank/data/models/product_model.dart' as _i4;
+import 'package:test_2go_bank/data/models/promotion_model.dart' as _i5;
+import 'package:test_2go_bank/domain/entities/product_entity.dart' as _i9;
+import 'package:test_2go_bank/domain/entities/promotion_entity.dart' as _i11;
 import 'package:test_2go_bank/domain/repositories/product_repository.dart'
-    as _i5;
+    as _i2;
+import 'package:test_2go_bank/domain/usecases/calculate_purchase_total_usecase.dart'
+    as _i12;
+import 'package:test_2go_bank/domain/usecases/fetch_product_promotion_usecase.dart'
+    as _i10;
+import 'package:test_2go_bank/domain/usecases/fetch_product_usecase.dart'
+    as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -30,8 +36,9 @@ import 'package:test_2go_bank/domain/repositories/product_repository.dart'
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
-  _FakeEither_0(
+class _FakeProductRepository_0 extends _i1.SmartFake
+    implements _i2.ProductRepository {
+  _FakeProductRepository_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -40,8 +47,8 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeProductModel_1 extends _i1.SmartFake implements _i3.ProductModel {
-  _FakeProductModel_1(
+class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
+  _FakeEither_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -50,27 +57,131 @@ class _FakeProductModel_1 extends _i1.SmartFake implements _i3.ProductModel {
         );
 }
 
-class _FakePromotionModel_2 extends _i1.SmartFake
-    implements _i4.PromotionModel {
-  _FakePromotionModel_2(
+class _FakeProductModel_2 extends _i1.SmartFake implements _i4.ProductModel {
+  _FakeProductModel_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
           parent,
           parentInvocation,
         );
+}
+
+class _FakePromotionModel_3 extends _i1.SmartFake
+    implements _i5.PromotionModel {
+  _FakePromotionModel_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [FetchProductUseCaseImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchProductUseCaseImpl extends _i1.Mock
+    implements _i6.FetchProductUseCaseImpl {
+  MockFetchProductUseCaseImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.ProductRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeProductRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.ProductRepository);
+
+  @override
+  _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>> call(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [id],
+        ),
+        returnValue:
+            _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>>.value(
+                _FakeEither_1<_i8.Failure, _i9.ProductEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [id],
+          ),
+        )),
+      ) as _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>>);
+}
+
+/// A class which mocks [FetchProductPromotionUseCaseImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchProductPromotionUseCaseImpl extends _i1.Mock
+    implements _i10.FetchProductPromotionUseCaseImpl {
+  MockFetchProductPromotionUseCaseImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.ProductRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeProductRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.ProductRepository);
+
+  @override
+  _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>> call(
+          int? productId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [productId],
+        ),
+        returnValue:
+            _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>>.value(
+                _FakeEither_1<_i8.Failure, _i11.PromotionEntity>(
+          this,
+          Invocation.method(
+            #call,
+            [productId],
+          ),
+        )),
+      ) as _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>>);
+}
+
+/// A class which mocks [CalculatePurchaseTotalUsecaseImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCalculatePurchaseTotalUsecaseImpl extends _i1.Mock
+    implements _i12.CalculatePurchaseTotalUsecaseImpl {
+  MockCalculatePurchaseTotalUsecaseImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  double call(List<_i9.ProductEntity>? products) => (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [products],
+        ),
+        returnValue: 0.0,
+      ) as double);
 }
 
 /// A class which mocks [ProductRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProductRepository extends _i1.Mock implements _i5.ProductRepository {
+class MockProductRepository extends _i1.Mock implements _i2.ProductRepository {
   MockProductRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>> fetchProduct(
+  _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>> fetchProduct(
           int? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -78,72 +189,72 @@ class MockProductRepository extends _i1.Mock implements _i5.ProductRepository {
           [id],
         ),
         returnValue:
-            _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>>.value(
-                _FakeEither_0<_i7.Failure, _i8.ProductEntity>(
+            _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>>.value(
+                _FakeEither_1<_i8.Failure, _i9.ProductEntity>(
           this,
           Invocation.method(
             #fetchProduct,
             [id],
           ),
         )),
-      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.ProductEntity>>);
+      ) as _i7.Future<_i3.Either<_i8.Failure, _i9.ProductEntity>>);
 
   @override
-  _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>
+  _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>>
       fetchProductPromotion(int? productId) => (super.noSuchMethod(
             Invocation.method(
               #fetchProductPromotion,
               [productId],
             ),
             returnValue:
-                _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>.value(
-                    _FakeEither_0<_i7.Failure, _i9.PromotionEntity>(
+                _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>>.value(
+                    _FakeEither_1<_i8.Failure, _i11.PromotionEntity>(
               this,
               Invocation.method(
                 #fetchProductPromotion,
                 [productId],
               ),
             )),
-          ) as _i6.Future<_i2.Either<_i7.Failure, _i9.PromotionEntity>>);
+          ) as _i7.Future<_i3.Either<_i8.Failure, _i11.PromotionEntity>>);
 }
 
 /// A class which mocks [ProductRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockProductRemoteDataSource extends _i1.Mock
-    implements _i10.ProductRemoteDataSource {
+    implements _i13.ProductRemoteDataSource {
   MockProductRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i3.ProductModel> fetchProduct(int? id) => (super.noSuchMethod(
+  _i7.Future<_i4.ProductModel> fetchProduct(int? id) => (super.noSuchMethod(
         Invocation.method(
           #fetchProduct,
           [id],
         ),
-        returnValue: _i6.Future<_i3.ProductModel>.value(_FakeProductModel_1(
+        returnValue: _i7.Future<_i4.ProductModel>.value(_FakeProductModel_2(
           this,
           Invocation.method(
             #fetchProduct,
             [id],
           ),
         )),
-      ) as _i6.Future<_i3.ProductModel>);
+      ) as _i7.Future<_i4.ProductModel>);
 
   @override
-  _i6.Future<_i4.PromotionModel> fetchProductPromotion(int? productId) =>
+  _i7.Future<_i5.PromotionModel> fetchProductPromotion(int? productId) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchProductPromotion,
           [productId],
         ),
-        returnValue: _i6.Future<_i4.PromotionModel>.value(_FakePromotionModel_2(
+        returnValue: _i7.Future<_i5.PromotionModel>.value(_FakePromotionModel_3(
           this,
           Invocation.method(
             #fetchProductPromotion,
             [productId],
           ),
         )),
-      ) as _i6.Future<_i4.PromotionModel>);
+      ) as _i7.Future<_i5.PromotionModel>);
 }

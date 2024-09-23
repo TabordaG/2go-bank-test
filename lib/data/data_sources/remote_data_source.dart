@@ -83,7 +83,7 @@ List<PromotionModel> testPromotions = [
     id: 3,
     productId: 4,
     type: PromotionTypeEnum.combinedOfferPromotion,
-    productIds: [4, 5],
+    combinedProductId: 5,
     combinedPrice: 3.0,
   ),
 ];

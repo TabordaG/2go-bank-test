@@ -56,13 +56,13 @@ class BuyOneGetOnePromotionEntity extends PromotionEntity {
 }
 
 class CombinedOfferPromotionEntity extends PromotionEntity {
-  final List<int> productIds;
+  final int? combinedProductId;
   final double combinedPrice;
 
   const CombinedOfferPromotionEntity({
     required int id,
     required int productId,
-    required this.productIds,
+    required this.combinedProductId,
     required this.combinedPrice,
   }) : super(
             id: id,
@@ -71,6 +71,6 @@ class CombinedOfferPromotionEntity extends PromotionEntity {
 
   @override
   List<Object?> get props => super.props
-    ..add(productIds)
+    ..add(combinedProductId)
     ..add(combinedPrice);
 }
