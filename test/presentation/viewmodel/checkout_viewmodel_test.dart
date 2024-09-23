@@ -37,6 +37,8 @@ void main() {
         .thenAnswer((_) async => Right(testProducts[0]));
     when(mockFetchProductPromotionUseCaseImpl(any)).thenAnswer(
         (_) async => const Left(DatabaseFailure('Promotion not found')));
+    when(mockCalculatePurchaseTotalUsecaseImpl(any))
+        .thenAnswer((_) => testProducts[0].price);
 
     await sut.addProduct(1);
 
@@ -49,6 +51,8 @@ void main() {
         .thenAnswer((_) async => Right(testProducts[0]));
     when(mockFetchProductPromotionUseCaseImpl(any))
         .thenAnswer((_) async => Right(testPromotions[0]));
+    when(mockCalculatePurchaseTotalUsecaseImpl(any))
+        .thenAnswer((_) => testProducts[0].price);
 
     await sut.addProduct(1);
 
@@ -56,12 +60,18 @@ void main() {
   });
 
   test('add different products more than once with no promotion', () async {
-    when(mockFetchProductUseCaseImpl.call(1))
+    when(mockFetchProductUseCaseImpl(1))
         .thenAnswer((_) async => Right(testProducts[0]));
-    when(mockFetchProductUseCaseImpl.call(2))
+    when(mockFetchProductUseCaseImpl(2))
         .thenAnswer((_) async => Right(testProducts[1]));
-    when(mockFetchProductPromotionUseCaseImpl.call(1))
+
+    when(mockFetchProductPromotionUseCaseImpl(1))
         .thenAnswer((_) async => Right(testPromotions[0]));
+    when(mockFetchProductPromotionUseCaseImpl(2))
+        .thenAnswer((_) async => Right(testPromotions[1]));
+
+    when(mockCalculatePurchaseTotalUsecaseImpl(any)).thenAnswer(
+        (_) => (testProducts[0].price * 3) + (testProducts[1].price * 2));
 
     await sut.addProduct(1);
     await sut.addProduct(2);
@@ -75,15 +85,18 @@ void main() {
   });
 
   test('add different products more than once with promotion', () async {
-    when(mockFetchProductUseCaseImpl.call(1))
+    when(mockFetchProductUseCaseImpl(1))
         .thenAnswer((_) async => Right(testProducts[0]));
-    when(mockFetchProductUseCaseImpl.call(2))
+    when(mockFetchProductUseCaseImpl(2))
         .thenAnswer((_) async => Right(testProducts[1]));
 
-    when(mockFetchProductPromotionUseCaseImpl.call(1)).thenAnswer(
+    when(mockFetchProductPromotionUseCaseImpl(1)).thenAnswer(
         (_) async => const Left(DatabaseFailure('Promotion not found')));
-    when(mockFetchProductPromotionUseCaseImpl.call(2))
+    when(mockFetchProductPromotionUseCaseImpl(2))
         .thenAnswer((_) async => Right(testPromotions[0]));
+
+    when(mockCalculatePurchaseTotalUsecaseImpl(any)).thenAnswer(
+        (_) => (testProducts[0].price * 3) + (testProducts[1].price * 2));
 
     await sut.addProduct(1);
     await sut.addProduct(2);
