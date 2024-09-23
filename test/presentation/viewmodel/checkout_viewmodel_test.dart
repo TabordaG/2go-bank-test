@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test_2go_bank/core/enums/checkout_state_enum.dart';
 import 'package:test_2go_bank/core/error/failure.dart';
 import 'package:test_2go_bank/presentation/viewmodel/checkout_viewmodel.dart';
 
@@ -30,14 +29,13 @@ void main() {
   });
 
   test('initial state should be empty', () {
-    expect(sut.state, CheckoutStateEnum.initial);
     expect(sut.purchase.items, isEmpty);
   });
 
   test('add a new product with no promotion', () async {
-    when(mockFetchProductUseCaseImpl.call(any))
+    when(mockFetchProductUseCaseImpl(any))
         .thenAnswer((_) async => Right(testProducts[0]));
-    when(mockFetchProductPromotionUseCaseImpl.call(any)).thenAnswer(
+    when(mockFetchProductPromotionUseCaseImpl(any)).thenAnswer(
         (_) async => const Left(DatabaseFailure('Promotion not found')));
 
     await sut.addProduct(1);
@@ -47,9 +45,9 @@ void main() {
   });
 
   test('add a new product with promotion', () async {
-    when(mockFetchProductUseCaseImpl.call(any))
+    when(mockFetchProductUseCaseImpl(any))
         .thenAnswer((_) async => Right(testProducts[0]));
-    when(mockFetchProductPromotionUseCaseImpl.call(any))
+    when(mockFetchProductPromotionUseCaseImpl(any))
         .thenAnswer((_) async => Right(testPromotions[0]));
 
     await sut.addProduct(1);

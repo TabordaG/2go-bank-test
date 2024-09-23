@@ -14,29 +14,29 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
   Future<ProductModel> fetchProduct(int id) {
     final product =
-        testProducts.firstWhereOrNull((element) => element.id == id);
+        mockedProducts.firstWhereOrNull((element) => element.id == id);
 
     if (product != null) {
       return Future.value(product);
     } else {
-      throw const DatabaseFailure('Product not found');
+      throw const DatabaseFailure('Produto não encontrado!');
     }
   }
 
   @override
   Future<PromotionModel> fetchProductPromotion(int productId) {
-    final promotion = testPromotions
+    final promotion = mockedPromotions
         .firstWhereOrNull((element) => element.productId == productId);
 
     if (promotion != null) {
       return Future.value(promotion);
     } else {
-      throw const DatabaseFailure('Promotion not found');
+      throw const DatabaseFailure('Promoção não encontrada!');
     }
   }
 }
 
-List<ProductModel> testProducts = [
+List<ProductModel> mockedProducts = [
   const ProductModel(
     id: 1,
     name: 'A',
@@ -64,7 +64,7 @@ List<ProductModel> testProducts = [
   ),
 ];
 
-List<PromotionModel> testPromotions = [
+List<PromotionModel> mockedPromotions = [
   const DiscountQuantityPromotionModel(
     id: 1,
     productId: 2,

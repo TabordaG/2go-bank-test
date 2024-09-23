@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:test_2go_bank/core/utils/toast.dart';
 import 'package:test_2go_bank/domain/entities/product_entity.dart';
 import 'package:test_2go_bank/domain/entities/purchase_entity.dart';
 
-import '../../core/enums/checkout_state_enum.dart';
 import '../../domain/usecases/calculate_purchase_total_usecase.dart';
 import '../../domain/usecases/fetch_product_promotion_usecase.dart';
 import '../../domain/usecases/fetch_product_usecase.dart';
@@ -26,7 +26,7 @@ abstract class CheckoutViewModelBase with Store {
   /// ----------------------------------------- Observable Variables
 
   @observable
-  CheckoutStateEnum state = CheckoutStateEnum.initial;
+  TextEditingController productIdController = TextEditingController();
 
   @observable
   var purchase = PurchaseEntity(
@@ -36,16 +36,17 @@ abstract class CheckoutViewModelBase with Store {
   );
 
   /// ----------------------------------------- Add Product to Purchase
-  ///
+
+  void clearProductIdController() {
+    productIdController.clear();
+  }
+
   /// Adds a product to the purchase list by its product ID.
-  /// This method sets the state to `CheckoutStateEnum.loading` while processing.
   /// It first checks if the product already exists in the purchase list:
   /// - If the product exists, it increments the amount of the existing product.
   /// - If the product does not exist, it fetches the product details and adds it to the purchase list.
   @action
   Future<void> addProduct(int productId) async {
-    state = CheckoutStateEnum.loading;
-
     int index = purchase.items.indexWhere((element) => element.id == productId);
     if (index != -1) {
       purchase.items[index] = purchase.items[index]
@@ -61,7 +62,6 @@ abstract class CheckoutViewModelBase with Store {
     }
 
     updatePurchaseTotal();
-    state = CheckoutStateEnum.loaded;
   }
 
   /// Fetches a product by its ID and applies any available promotions.
@@ -75,7 +75,6 @@ abstract class CheckoutViewModelBase with Store {
     // Handle the result of fetching the product
     fetchProductResult.fold(
       (failure) {
-        state = CheckoutStateEnum.error;
         toastError(message: failure.message);
       },
       (fetchedProduct) {
@@ -104,11 +103,34 @@ abstract class CheckoutViewModelBase with Store {
     return product;
   }
 
+  /// ----------------------------------------- Update Product Amount
+
+  void updateProductAmount(int productId, int value) {
+    int index = purchase.items.indexWhere((element) => element.id == productId);
+    if (index != -1) {
+      purchase.items[index] = purchase.items[index]
+          .copyWith(amount: purchase.items[index].amount + value);
+    }
+
+    updatePurchaseTotal();
+  }
+
+  /// ----------------------------------------- Remove Product from Purchase
+
+  void removeProduct(int productId) {
+    int index = purchase.items.indexWhere((element) => element.id == productId);
+    purchase =
+        purchase.copyWith(items: List.from(purchase.items)..removeAt(index));
+
+    updatePurchaseTotal();
+  }
+
   /// ----------------------------------------- Calculate Total
 
   @action
   void updatePurchaseTotal() {
-    double total = _calculatePurchaseTotalUsecase(purchase.items);
+    List<ProductEntity> products = List.from(purchase.items);
+    double total = _calculatePurchaseTotalUsecase(products);
     purchase = purchase.copyWith(total: total, date: DateTime.now());
   }
 }

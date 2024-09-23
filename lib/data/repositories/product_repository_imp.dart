@@ -22,9 +22,9 @@ class ProductRepositoryImp implements ProductRepository {
     try {
       final product = await remoteDataSource.fetchProduct(id);
       // localDataSource.cacheProduct(product);
-      return Right(product);
+      return Right(product.toEntity());
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(e as Failure);
     }
   }
 
@@ -34,7 +34,7 @@ class ProductRepositoryImp implements ProductRepository {
     try {
       final promotion = await remoteDataSource.fetchProductPromotion(productId);
       // localDataSource.cachePromotion(promotion);
-      return Right(promotion);
+      return Right(promotion.toEntity());
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

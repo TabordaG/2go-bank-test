@@ -11,6 +11,7 @@ class ProductModel extends ProductEntity {
         id: id,
         name: name,
         price: price,
+        promotion: promotion,
       );
 
   factory ProductModel.fromEntity(ProductEntity entity) => ProductModel(
